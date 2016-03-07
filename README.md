@@ -1,12 +1,11 @@
-Projeto Fase 1 PDO
+Projeto Fase 2 PDO
 ------------------
 ------------------
 
 Descrição
 ---------
-Projeto para listar alunos e listar 3 alunos com maiores notas.
+Desenvolver CRUD com PDO.
 
-Front-end utilizado no projeto foi webix.
 
 Código php se encontra no diretorio:
 
