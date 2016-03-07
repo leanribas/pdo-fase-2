@@ -27,8 +27,15 @@ define(function(){
 						}
 					},
 					data:[
-                                                {id: "listatodosalunos", value: "Listar todos Alunos", icon:"home", details:"Lista de Alunos"},
-						{id: "alunosnota", open: true, value:"Maior Nota", icon: "table", details:"Alunos com Maior Nota"}
+                                            
+                                                {id: "cadastros", value: "Cadastros", icon:"home", details:"",data:[
+                                                  {id: "listatodosalunos", value: "Alunos", icon:"users", details:"Cadastro de Alunos"},                                                        
+                                                ]},
+                                            
+						{id: "relatorios", value:"Relatórios", icon: "print", data:[
+                                                  {id: "alunosnota", open: true, value:"Maiores Notas", icon: "star-o", details:"Alunos com Maiores Notas"}
+                                                ]}
+						
 					]
 				}
 			]
