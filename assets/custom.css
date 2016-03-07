@@ -31,6 +31,10 @@
     
 }
 
+.title {
+    background-color: transparent;
+}
+
 .upload_overall{ height:100%; line-height: 26px;}
 .upload_name{ height:100%; float:left; overflow: hidden;}
 .upload_size{	padding: 0 10px; width: 100px; text-align: right; float: right;}
