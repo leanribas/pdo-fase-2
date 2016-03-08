@@ -31,8 +31,8 @@ define([
 
 	//configuration
 	var app = core.create({
-		id:             "siscaena",
-		name:		"SisCaena",
+		id:             "sca",
+		name:		"Sistema de Cadastro de Alunos",
 		version:	"0.1",
 		debug:		true,
 		start:		"/app/listatodosalunos"		

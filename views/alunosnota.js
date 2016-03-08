@@ -1,5 +1,5 @@
 define([
-    'views/modules/alunos'
+    'views/modules/alunosmaioresnotas'
 ],function(dataTableAluno){
     
     
@@ -12,10 +12,7 @@ define([
 
     
     return {
-        $ui:layout,
-        $oninit:function(){
-            $$('dataTableAlunos').load('php/alunosmaioresnotas.php')
-        }
+        $ui:layout
     }
     
 });

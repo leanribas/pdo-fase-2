@@ -26,14 +26,22 @@
 
 .top-toobar-logo img{
     
-    width: 57px;
-    height: 60px;
+    width: 50px;
+    height: 40px;
     
 }
 
 .title {
     background-color: transparent;
 }
+
+.sub-title-system {    
+    font-family: "Open Sans",sans-serif !important;;
+    font-size: 10px !important;
+    font-size-adjust: none;
+    font-style: normal;
+    font-weight: 400;    
+}            
 
 .upload_overall{ height:100%; line-height: 26px;}
 .upload_name{ height:100%; float:left; overflow: hidden;}

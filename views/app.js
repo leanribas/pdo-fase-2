@@ -9,7 +9,7 @@ define([
 	//Top toolbar
 	var mainToolbar = {
 		view: "toolbar",
-		height: 65,                
+		height: 50,                
 		elements:[
 			{view: "label", css:'top-toobar-logo' , label: "<img src='assets/imgs/brazil.png' />", width: 56},
                         {
@@ -21,7 +21,7 @@ define([
                                 },
                                 {
                                     view:'label',
-                                    height:25,
+                                    height:15,
                                     label: 'SCA',
                                     css:'sub-title-system'
                                 }
@@ -29,7 +29,7 @@ define([
                         },        
                         {height: 60, id: "person_template", css: "header_person", borderless: true, width: 145, data: {id: 3, name: "Leandro Ribas"},
                             template: function (obj) {
-                                var html = "<div style='cursor:pointer; margin-top: 12px; height:100%;width:100%; vertical-align:middle' onclick='webix.$$(\"profilePopup\").show(this)'>";
+                                var html = "<div style='cursor:pointer; height:100%;width:100%; vertical-align:middle' onclick='webix.$$(\"profilePopup\").show(this)'>";
                                 html += "<img class='photo' src='assets/imgs/photos/" + obj.id + ".png' /><span class='name logged-name'>" + obj.name + "</span>";
                                 html += "<span class='webix_icon fa-angle-down'></span></div>";
                                 return html;                                
