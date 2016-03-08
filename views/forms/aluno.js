@@ -5,7 +5,9 @@ define([],function(){
         id:'formAluno',        
         rules: {
           "nome": webix.rules.isNotEmpty,
-          "nota": webix.rules.isNumber
+          "nota": function(value){
+              return webix.rules.isNumber && value >=0 && value <= 100;
+          }
         },        
         elements:[
             {
@@ -20,11 +22,45 @@ define([],function(){
                 name:'nota',
                 label:'Nota',       
                 required: true,
-                invalidMessage: 'Informe a nota do Aluno'
+                invalidMessage: 'Informe a nota entre 0 e 100',
+                bottomLabel: '* A nota deve ser entre 0 e 100'
             },
             {
                 margin:5,
                 cols:[
+                    {
+                        view:'button',
+                        type:'iconButton',
+                        icon:'chevron-left',
+                        width: 32,
+                        click:function(){
+                            var dataTable = this.getFormView().dataTable;                            
+                            var id = dataTable.getPrevId(dataTable.getSelectedId());
+                            if(id)
+                            {
+                                dataTable.select(id);
+                                dataTable.showItem(id);                                
+                            }    
+                        }
+                    },
+                    {
+                       view:'button',
+                       type:'iconButton',
+                       icon:'chevron-right',
+                       width:32,
+                       css:'button-next-nav',
+                       click:function(){
+                           var dataTable = this.getFormView().dataTable;
+                           var id = dataTable.getNextId(dataTable.getSelectedId());
+                           if(id)
+                           {
+                                dataTable.select(id);
+                                dataTable.showItem(id);                                                          
+                           }    
+
+                       }
+                       
+                    },
                     {},
                     {
                         view:'button',
@@ -39,20 +75,40 @@ define([],function(){
                                 windowForm.showProgress({
                                     type:'icon',
                                     delay:2000
-                                });                                
-                                webix.ajax().post('php/adicionaaluno.php',function(text,data,xhr){
+                                });          
+                                var url = '';
+                                if(form.insert)
+                                {
+                                    url = 'php/adicionaaluno.php';
+                                }    
+                                else
+                                {
+                                    url = 'php/alteraaluno.php';
+                                }    
+                                webix.ajax().post(url,form.getValues(),function(text,data,xhr){
                                     var retorno = data.json();
                                     
                                     if(retorno.success)
                                     {
-                                      form.save();  
+                                      if(form.insert)  
+                                      {
+                                          var reg = form.getValues();
+                                          reg.id = retorno.id;
+                                          form.dataTable.add(reg);
+                                          form.dataTable.select(form.dataTable.getLastId());
+                                          form.dataTable.showItem(form.dataTable.getLastId());
+                                      }    
+                                      else
+                                      {
+                                          form.save();                                            
+                                      }                                        
                                       windowForm.close();     
                                     }
                                     else
                                     {
                                       webix.alert({
                                           type:'alert-error',
-                                          text:'Não foi possível gravar as informações.<br> Erro: ' + retorno.message,
+                                          text:retorno.message,
                                           callback:function(){
                                               form.enable();
                                               windowForm.hideProgress();
@@ -67,7 +123,7 @@ define([],function(){
                         view:'button',
                         label:'Cancelar',
                         click:function(){
-                            this.getParentView().getParentView().getParentView().close();
+                            this.getParentView().getParentView().getParentView().close();                            
                         }
                     }
                 ]

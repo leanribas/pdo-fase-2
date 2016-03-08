@@ -22,9 +22,26 @@ define([
           icon:'plus',
           width:130,
           click:function(){
+              formAluno.$ui.head = 'Adicionar Aluno';              
               webix.ui(formAluno.$ui).show();
+              var form = $$('formAluno');
+              form.dataTable = $$('dataTableAlunos');
+              form.insert = true;
           }
-        }
+        },
+        {
+            view:'button',
+            type:'iconButton',
+            label:'Refresh',
+            icon:'refresh',
+            width:130,
+            click:function(){
+                var dt = $$('dataTableAlunos');
+                dt.clearAll();
+                dt.load(dt.config.url);
+            }
+            
+        }        
     ]
     
     
@@ -45,7 +62,6 @@ define([
     return {
         $ui:layout,
         $oninit:function(){
-            
             $$('searchAlunos').attachEvent('onTimedKeyPress',function(){
                 var text = this.getValue().toLowerCase();
                 $$('dataTableAlunos').filter(function(obj){                    

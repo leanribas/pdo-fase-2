@@ -34,7 +34,7 @@ define([
 		id:             "sca",
 		name:		"Sistema de Cadastro de Alunos",
 		version:	"0.1",
-		debug:		true,
+		debug:		false,
 		start:		"/app/listatodosalunos"		
 	});
 
