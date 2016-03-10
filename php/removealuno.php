@@ -1,13 +1,15 @@
 <?php
-
 require_once('db\db.php');
+require_once('lib\sca\EntityInterface.php');
 require_once('lib\sca\Aluno.php');
+require_once('lib\sca\ServiceDb.php');
 
 if(is_numeric($_POST['id']))
 {
     $aluno = new Aluno($conexao);
+    $sdb = new ServiceDb($conexao, $aluno);
     
-    if($aluno->deletar($_POST['id']))
+    if($sdb->deletar($_POST['id']))
     {
         $dados = [
             "success" => true

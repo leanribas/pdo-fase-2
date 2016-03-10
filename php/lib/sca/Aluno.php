@@ -1,70 +1,17 @@
 <?php
 
-class Aluno
-{
-    private $db;
+class Aluno implements EntityInterface
+{   
+    private $table='alunos';
     private $id;
     private $nome;
     private $nota;
     
-    public function __construct(\PDO $db)
+    public function getTable()
     {
-        $this->db = $db;
-    }
-    
-    public function listar($order = null)
-    {
-        $q = 'select * from alunos';
-        if(is_string($order))
-        {
-            $q .= ' order by ' . $order;
-        }    
-        
-        $stmt = $this->db->query($q);
-        return $stmt->fetchAll();
-            
-    }
-    
-    public function listarMaioresNotas($qtdRegistros)
-    {
-        $q = 'select * from alunos order by nota desc limit ' . $qtdRegistros;        
-        $stmt = $this->db->query($q);
-        return $stmt->fetchAll();
-    }
-    
-    public function inserir(){
-        $sql = 'insert into alunos (nome,nota) values (:nome,:nota)';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':nome',$this->getNome(),\PDO::PARAM_STR);
-        $stmt->bindValue(':nota',$this->getNota(),\PDO::PARAM_INT);
-        if(!$stmt->execute())
-        {
-            return false;
-        }
-        else
-        {   
-           $this->setId($this->db->lastInsertId());
-           return $this->getId();
-        }
-    }
-    
-    public function alterar(){
-        $sql = 'update alunos set nome= :nome, nota= :nota where id= :id';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id',$this->getId(),\PDO::PARAM_INT);
-        $stmt->bindValue(':nome',$this->getNome(),\PDO::PARAM_STR);
-        $stmt->bindValue(':nota',$this->getNota(),\PDO::PARAM_INT);
-        return $stmt->execute();
-    }
-    
-    public function deletar($id)
-    {
-        $sql = 'delete from alunos where id= :id';
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id);
-        return $stmt->execute();
-    }
-    
+        return $this->table;
+    }   
+
     public function getId()
     {
         return $this->id;
@@ -89,6 +36,11 @@ class Aluno
 
     public function setNome($nome)
     {
+        $nome = trim($nome);
+        if(empty($nome))
+        {
+            throw new Exception('Atributo nome não pode ser vazio.');
+        } 
         $this->nome = $nome;
         return $this;
     }

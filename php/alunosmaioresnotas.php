@@ -1,11 +1,13 @@
 <?php
 
 require_once('db\db.php');
+require_once('lib\sca\EntityInterface.php');
 require_once('lib\sca\Aluno.php');
+require_once('lib\sca\ServiceDb.php');
 
-
-$a = new Aluno($conexao);
-$alunos = $a->listarMaioresNotas(3);
+$a = new Aluno();
+$sdb = new ServiceDb($conexao, $a);
+$alunos = $sdb->listar('nota desc',3);
 $dados = array();
 foreach ($alunos as $aluno)
 {

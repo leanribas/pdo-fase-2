@@ -1,15 +1,17 @@
 <?php
 
 require_once('db\db.php');
+require_once('lib\sca\EntityInterface.php');
 require_once('lib\sca\Aluno.php');
+require_once('lib\sca\ServiceDb.php');
 
 if(isset($_POST['nome']) && is_numeric($_POST['nota']))
 {
-    $aluno = new Aluno($conexao);
+    $aluno = new Aluno();
     $aluno->setNome($_POST['nome'])
           ->setNota($_POST['nota']);
-    
-    if($aluno->inserir() !== false)
+    $sdb = new ServiceDb($conexao,$aluno);
+    if($sdb->inserir() !== false)
     {
         $dados = [
             "success" => true,
