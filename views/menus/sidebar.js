@@ -30,6 +30,7 @@ define(function(){
                                             
                                                 {id: "cadastros", value: "Cadastros", icon:"home", details:"",data:[
                                                   {id: "listatodosalunos", value: "Alunos", icon:"users", details:"Cadastro de Alunos"},                                                        
+                                                  {id: "listausuarios", value: "Usuários", icon:"users", details:"Cadastro de Usuários"},                                                        
                                                 ]},
                                             
 						{id: "relatorios", value:"Relatórios", icon: "print", data:[
