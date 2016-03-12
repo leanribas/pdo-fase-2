@@ -24,3 +24,12 @@ insert into alunos (nome,nota) values ('Maristela',100);
 insert into alunos (nome,nota) values ('Hermione',100);
 insert into alunos (nome,nota) values ('Harry',20);
 insert into alunos (nome,nota) values ('Rony',45);
+
+create table usuarios(
+  id int not null auto_increment primary key,
+  nome varchar(255) not null,
+  email varchar(255) not null,
+  password varchar(255) not null
+);
+insert into usuarios (nome,email,password) values ('Admin','leanribas@gmail.com',md5('admin'));
+insert into usuarios (nome,email,password) values ('Jose','jose@gmail.com',md5('jose'));
