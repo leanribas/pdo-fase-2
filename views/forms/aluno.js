@@ -79,11 +79,11 @@ define([],function(){
                                 var url = '';
                                 if(form.insert)
                                 {
-                                    url = 'php/adicionaaluno.php';
+                                    url = 'php/aluno/adicionaaluno.php';
                                 }    
                                 else
                                 {
-                                    url = 'php/alteraaluno.php';
+                                    url = 'php/aluno/alteraaluno.php';
                                 }    
                                 webix.ajax().post(url,form.getValues(),function(text,data,xhr){
                                     var retorno = data.json();

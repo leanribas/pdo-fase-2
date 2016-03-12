@@ -20,7 +20,7 @@ define([
             {id:'action-update',header:'&nbsp;', width:60, padding:10, template:'<span style="cursor:pointer; margin-left:14px" class="icon_action_update webix_icon fa-pencil"></span>'},
             {id:'action-delete',header:'&nbsp;',width:60,template:'<span style="cursor:pointer;margin-left:14px" class="icon_action_delete webix_icon fa-trash-o"></span>'}
         ],
-        url:'php/listaalunos.php',                
+        url:'php/aluno/listaalunos.php',                
         onClick:{
             icon_action_update:function(e,id,node){                
               actionAltera();
@@ -34,7 +34,7 @@ define([
                    callback:function(res){
                        if(res)
                        {
-                           webix.ajax().post('php/removealuno.php',{id:$$('dataTableAlunos').getItem(id).id},function(text,data,xhr){
+                           webix.ajax().post('php/aluno/removealuno.php',{id:$$('dataTableAlunos').getItem(id).id},function(text,data,xhr){
                                
                                var retorno = data.json();
                                if(retorno.success == false)

@@ -8,7 +8,7 @@ define([],function(){
             {id:'nome',header:'Nome',fillspace:1},
             {id:'nota',header:'Nota'}
         ],
-        url:'php/alunosmaioresnotas.php'
+        url:'php/aluno/alunosmaioresnotas.php'
     }
     
     return {
