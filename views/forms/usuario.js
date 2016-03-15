@@ -31,8 +31,9 @@ define([],function(){
                 type:'password',
                 label:'Password',                
                 invalidMessage:'Informe a senha com no mínimo de 6 caracteres',
-                bottonMessage:'*para cadastrar uma nova senha informe no mínino 6 caracteres'
+                bottomLabel:'*para cadastrar uma nova senha informe<br>no mínino 6 caracteres'
             },
+            {},
             {
                 margin:5,
                 cols:[

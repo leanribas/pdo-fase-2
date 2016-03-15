@@ -1,78 +1,124 @@
-define([
+/**
+ * Created by Mads on 02-10-2015.
+ */
+define([], function() {
 
-],function(){
+    "use strict";
 
-	// if you need not custom methods, just use
-	// return webix.remote.users;
+    var user = null,
+        credentials = {},
+        oauthUrl = {
+            url:'php/usuario/login.php',
+            clientId: 1,
+            clientSecret:3334
+        }
+                
+        ;
 
-	//hardcode user
-	webix.remote.$user = { id:1 };
+    credentials = Cookies.getJSON("appCookie") || {};
 
-	var current_user = webix.remote.$user || null;
-	if (current_user)
-		setCurrentUser(current_user);
+    //console.log("Credentials on load: ", credentials);
 
-	function setCurrentUser(value, afterlogin){
-		//we need to reload document after login out
-		if (!value){
-			session.logout().then(function(){
-				current_user = null;
-				document.location.reload();	
-			});
-			return;
-		}
-		//we need to reload document when changing active user
-		if (current_user && current_user != value){
-			document.location.reload();
-			return;
-		}
+    return {
+        getCurrentUser: function() {
+            return this.getAccessToken();
+        },
 
-		current_user = value;
+        getAccessToken: function() {
+            if (credentials.access_token === undefined) {
+                return null;
+            }
 
-		var isvalid = (current_user.settings && typeof current_user.settings == "string");
-		current_user.settings = isvalid ? JSON.parse(current_user.settings) : {};
+            if ((credentials.expires_in + credentials.timestamp) < (Date.now() / 1000)) {
+                return null;
+            }
+            
+            return credentials.access_token;
+        },
 
-		webix.extend(current_user.settings,{
-			language:"en",
-			theme:"siberia:webix",
-			notifications:0
-		});
+        setCurrentUser: function(userId) {
+            user = userId;
+            return true;
+        },
 
-		require(["helpers/locale", "helpers/theme"], function(locale, theme){
-			//if user has different theme after login - we need to reload page
-			if (afterlogin){
-				if (!locale.isNow(current_user.settings.language) ||
-				    !theme.isNow(current_user.settings.theme))
-				    	document.location.reload();
-			}
+        login: function(username, password, component) {
 
-			//call save to store values in the local store			
-			locale.setLang(current_user.settings.language, afterlogin);
-			theme.setTheme(current_user.settings.theme, afterlogin);
-		});
-	}
+            webix.extend(component, webix.ProgressBar);
+            component.disable();
+            component.showProgress();
+            
+            webix.ajax().post(oauthUrl.url,{             
+                "username": username,
+                "password": password
+            }, function(text, data) {
 
-	function getCurrentUser(){
-		return current_user;
-	}
+                credentials = data.json();
+                
+                if(credentials.success === true)
+                {
+                    credentials.timestamp = Date.now() / 1000 | 0;
 
-	function saveSetting(key, value, reload){
-		if(current_user){
-			var id = current_user.id,
-				settings = current_user.settings;
+                    Cookies.set("appCookie", credentials);
 
-			if(!settings[key] || value != settings[key]){
-				if (reload)
-					document.location.reload();
-			}
-		}
-	}
+                    require(["app"], function(app){
+                        app.router(app.config.start);
+                    });                                                        
+                }
+                else
+                {
+                   webix.message({type:'alert-error',text:credentials.message});                    
+                   component.enable();
+                   component.hideProgress();                   
+                }    
 
+            }).then(null, function() {
+                // If error
+                component.enable();
+                component.hideProgress();
+            });
 
-	return {
-		saveSetting:saveSetting,
-		getCurrentUser:getCurrentUser,
-		setCurrentUser:setCurrentUser,
-	};
+//            if (username == "test" && password == "test") {
+//                credentials = {
+//                    "access_token": "9c5742da1edc3531da2009fb35bb843c49e2e680",
+//                    "expires_in": 3600,
+//                    "token_type": "Bearer",
+//                    "scope": null,
+//                    "refresh_token": "1a8ceb5b59dac24f532b852e544ec3b834cea53c"
+//                };
+//                credentials.timestamp = Date.now() / 1000 | 0;
+//
+//                Cookies.set("appCookie", credentials);
+//
+//                require(["app"], function(app){                    
+//                    app.router(app.config.start);
+//                });
+//            } else {
+//                setTimeout(function() {
+//                    component.enable();
+//                    component.hideProgress();
+//                }, 2000);
+//            }
+        },
 
+        logout: function() {
+            credentials = {};
+            Cookies.remove("appCookie");
+        },
+
+        refresh: function() {
+            // Use the refresh-token to get a new bearer-token
+            
+        },
+
+        session: {
+            status: function() {
+                return new Promise(function (resolve, reject) {
+                    console.log("Getting user-status");
+                    resolve(true);
+
+                });
+
+            }
+        }
+    };
 });

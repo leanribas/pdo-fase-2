@@ -1,9 +1,9 @@
 <?php
-
-require_once('db\db.php');
-require_once('lib\sca\EntityInterface.php');
-require_once('lib\sca\Aluno.php');
-require_once('lib\sca\ServiceDb.php');
+require_once('..\auth\valida.php');
+require_once('..\db\db.php');
+require_once('..\lib\sca\EntityInterface.php');
+require_once('..\lib\sca\Aluno.php');
+require_once('..\lib\sca\ServiceDb.php');
 
 if(isset($_POST['nome']) && is_numeric($_POST['nota']))
 {

@@ -12,6 +12,25 @@ class ServiceDb
         $this->entity = $entity;
     }
     
+    public function find(array $criterio)
+    {
+        if(count($criterio) == 0)
+        {
+            return false;
+        }    
+        $q = "select * from {$this->entity->getTable()} where ";
+        $q .= implode( ' and ', array_map(function($v){return $v.'= :'.$v;},array_keys($criterio)));
+        $stmt = $this->db->prepare($q);
+        foreach ($criterio as $campo=>$valor)            
+        {
+            $stmt->bindValue(':'.$campo,$valor);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll();
+        
+        
+    }
+    
     public function listar($order = null, $limit = null)
     {
         $q = "select * from {$this->entity->getTable()}";

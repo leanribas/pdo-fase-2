@@ -10,7 +10,7 @@ return {
 			{id: 1, icon: "user", value: "Meu Perfil"},
 			{id: 2, icon: "lock", value: "Travar Tela"},			
 			{ $template:"Separator" },
-			{id: 4, icon: "sign-out", value: "Logout"}
+			{id: 4, icon: "sign-out", value: "Logout", href: "#!/logout"}
 		],
 		type:{
 			template: function(obj){

@@ -3,10 +3,10 @@ define([
 ],function(formUsuario){
     
     var actionAltera = function(){
-        formUsuario.$ui.head = 'Alteração';                
+        formUsuario.$ui.head = 'Alteração de Usuário';                
         webix.ui(formUsuario.$ui).show();
-        $$('formAluno').bind('dataTableUsuarios');        
-        $$('formAluno').dataTable = $$('dataTableUsuarios');                
+        $$('formUsuario').bind('dataTableUsuarios');        
+        $$('formUsuario').dataTable = $$('dataTableUsuarios');                
     };
     
     var grid = {
@@ -16,7 +16,7 @@ define([
         columns:[            
             {id:'id',header:'ID',sort:'int'},
             {id:'nome',header:'Nome',fillspace:3,sort:'string'},
-            {id:'email',header:'Nota',fillspace:1,sort:'string'},
+            {id:'email',header:'e-mail',fillspace:1,sort:'string'},
             {id:'action-update',header:'&nbsp;', width:60, padding:10, template:'<span style="cursor:pointer; margin-left:14px" class="icon_action_update webix_icon fa-pencil"></span>'},
             {id:'action-delete',header:'&nbsp;',width:60,template:'<span style="cursor:pointer;margin-left:14px" class="icon_action_delete webix_icon fa-trash-o"></span>'}
         ],

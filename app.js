@@ -4,10 +4,10 @@
 
 define([
 	"libs/core",
-	"helpers/menu",
-	"helpers/locale",	
-	"libs/rollbar"
-], function(core, menu, locale, tracker){
+	"helpers/menu",	
+	"libs/rollbar",
+        "plugins/user"
+], function(core, menu, tracker, user){
 
 
 	//webix.codebase = "./";
@@ -38,8 +38,8 @@ define([
 		start:		"/app/listatodosalunos"		
 	});
 
-	app.use(menu);
-	app.use(locale);
+        app.use(user);
+	app.use(menu);	
         
 	return app;
 });
