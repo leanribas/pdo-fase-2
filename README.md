@@ -1,10 +1,10 @@
-Projeto Fase 2 PDO
+Projeto Fase 3 PDO
 ------------------
 ------------------
 
 Descrição
 ---------
-Desenvolver CRUD com PDO.
+Adicionar ao CRUD de Alunos CRUD de usuários e login somente para usuários cadastrados.
 
 
 Código php se encontra no diretorio:
