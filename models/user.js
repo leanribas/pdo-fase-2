@@ -17,13 +17,20 @@ define([], function() {
 
     credentials = Cookies.getJSON("appCookie") || {};
 
-    //console.log("Credentials on load: ", credentials);
+   // console.log("Credentials on load: ", credentials);
 
     return {
         getCurrentUser: function() {
             return this.getAccessToken();
         },
-
+        getUserName:function() {          
+            
+           if(credentials.user_name === undefined) 
+           {
+               return null;
+           }    
+           return credentials.user_name;
+        },
         getAccessToken: function() {
             if (credentials.access_token === undefined) {
                 return null;
@@ -42,7 +49,7 @@ define([], function() {
         },
 
         login: function(username, password, component) {
-
+            var me = this;
             webix.extend(component, webix.ProgressBar);
             component.disable();
             component.showProgress();
@@ -57,11 +64,11 @@ define([], function() {
                 if(credentials.success === true)
                 {
                     credentials.timestamp = Date.now() / 1000 | 0;
-
+                    Cookies.remove("appCookie");                    
                     Cookies.set("appCookie", credentials);
-
                     require(["app"], function(app){
-                        app.router(app.config.start);
+                        app.router(app.config.start);                                                
+                        window.location.reload();
                     });                                                        
                 }
                 else

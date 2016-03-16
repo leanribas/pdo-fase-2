@@ -1,8 +1,9 @@
 define([	
 	"views/menus/profile",
 	"views/menus/sidebar",
-	"views/webix/icon"
-],function(profile, menu){
+	"views/webix/icon",
+        "models/user"
+],function(profile, menu, ic, user){
 
         webix.i18n.parseFormatDate = webix.Date.strToDate("%d/%m/%Y");
 
@@ -27,7 +28,7 @@ define([
                                 }
                           ]
                         },        
-                        {height: 60, id: "person_template", css: "header_person", borderless: true, width: 145, data: {id: 3, name: "Leandro Ribas"},
+                        {height: 60, id: "person_template", css: "header_person", borderless: true, width: 145, data: {id: 3, name: user.getUserName()},
                             template: function (obj) {
                                 var html = "<div style='cursor:pointer; height:100%;width:100%; vertical-align:middle' onclick='webix.$$(\"profilePopup\").show(this)'>";
                                 html += "<img class='photo' src='assets/imgs/photos/" + obj.id + ".png' /><span class='name logged-name'>" + obj.name + "</span>";

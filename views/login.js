@@ -7,9 +7,15 @@ define([
 
     "use strict";
 
+//    var values = webix.copy({
+//        username: 'admin@admin.com',
+//        password: 'admin',
+//        rememberme: false
+//    }, Cookies.getJSON("Crm"));
+//    
     var values = webix.copy({
-        username: 'admin@admin.com',
-        password: 'admin',
+        username: 'jose@gmail.com',
+        password: 'jose',
         rememberme: false
     }, Cookies.getJSON("Crm"));
 

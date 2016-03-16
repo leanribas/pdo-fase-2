@@ -35,7 +35,7 @@ define([
 		name:		"Sistema de Cadastro de Alunos",
 		version:	"0.1",
 		debug:		false,
-		start:		"/app/listatodosalunos"		
+		start:		"/app/listatodosalunos/123456"		
 	});
 
         app.use(user);
