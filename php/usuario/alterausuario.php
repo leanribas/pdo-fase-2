@@ -10,7 +10,7 @@ if(is_numeric($_POST['id']) && isset($_POST['nome']) && isset($_POST['email']) &
     $usuario = new Usuario();
     $usuario->setId($_POST['id'])
           ->setNome($_POST['nome'])
-          ->setEmail($_POST['nota'])
+          ->setEmail($_POST['email'])
           ->setPassword($_POST['password']);
     $sdb = new ServiceDb($conexao, $usuario);
     if($sdb->alterar())
