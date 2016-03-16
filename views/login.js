@@ -7,17 +7,17 @@ define([
 
     "use strict";
 
-//    var values = webix.copy({
-//        username: 'admin@admin.com',
-//        password: 'admin',
-//        rememberme: false
-//    }, Cookies.getJSON("Crm"));
-//    
     var values = webix.copy({
-        username: 'jose@gmail.com',
-        password: 'jose',
+        username: '',
+        password: '',
         rememberme: false
     }, Cookies.getJSON("Crm"));
+//    
+//    var values = webix.copy({
+//        username: 'jose@gmail.com',
+//        password: 'jose',
+//        rememberme: false
+//    }, Cookies.getJSON("Crm"));
 
     return {
         $ui: {

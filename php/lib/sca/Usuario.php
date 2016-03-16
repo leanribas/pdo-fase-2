@@ -57,8 +57,8 @@ class Usuario implements EntityInterface
     public function setEmail($email)
     {
         $email = trim($email);
-        $p = "^[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]+.([a-zA-Z]{2,4})$";        
-        if(ereg($p, $email))
+        $pattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";      
+        if(preg_match($pattern, $email) == 1)
         {
             $this->email = $email;
             return $this;              
@@ -76,7 +76,7 @@ class Usuario implements EntityInterface
         $password=trim($password);
         if(strlen($password) >= 6)
         {    
-          $this->password = $password;
+          $this->password = md5($password);
           return $this;
         }
         else
